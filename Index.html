@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishant Kumar Dubey | System Launch: 19.10.2009</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the core layout and dynamic background */
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 1rem;
+            
+            /* Set the background image (using the dynamic ID of the uploaded motorcycle photo) */
+            background-image: url('uploaded:SAVE_20250815_194320.jpg-ef08f80a-7391-4a94-a72d-1f212fc5e471');
+            background-size: cover;
+            background-position: center 20%; /* Focus on Nishant */
+            background-attachment: fixed; /* Parallax effect */
+        }
+        
+        /* Overlay for contrast (darkens the background image) */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); /* Darker overlay */
+            backdrop-filter: blur(10px); /* Subtle background blur for depth */
+            z-index: 1;
+        }
+
+
+        /* Glassmorphism Effect for the main card */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.05); /* Very light, transparent background */
+            backdrop-filter: blur(20px); /* Heavy blur for the glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Stronger shadow */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            z-index: 2; /* Keep card above overlay */
+        }
+        .glass-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 16px 64px 0 rgba(79, 70, 229, 0.4); /* Subtle purple glow on hover */
+        }
+
+
+        /* Countdown unit styling */
+        .countdown-unit {
+            background-color: rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease-out;
+        }
+        .countdown-unit:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Pulsating effect for the active date message */
+        .pulsate {
+            animation: pulse-effect 2s infinite;
+        }
+
+
+        @keyframes pulse-effect {
+            0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); }
+            50% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 255, 255, 1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Overlay -->
+    <div class="overlay"></div>
+
+
+    <!-- Main Content Card (Glassmorphism Effect) -->
+    <div class="max-w-xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-12 text-center relative">
+        
+        <!-- Header & Coder Persona -->
+        <div class="mb-8">
+            <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+                Nishant Kumar Dubey
+            </h1>
+            <p class="text-lg sm:text-xl font-medium text-indigo-400 mt-2">
+                // System Initializing for Next Cycle
+            </p>
+        </div>
+
+
+        <!-- System Details Section -->
+        <div class="mb-8 p-4 bg-white/5 rounded-xl border border-white/10">
+            <p class="text-sm text-gray-400 uppercase tracking-widest mb-2">
+                USER PROFILE
+            </p>
+            <div class="flex flex-col sm:flex-row justify-around space-y-2 sm:space-y-0 text-sm font-mono">
+                <p class="text-indigo-300">
+                    <span class="text-gray-400">// Name:</span> Nishant
+                </p>
+                <p class="text-indigo-300">
+                    <span class="text-gray-400">// Birthday:</span> 19.10.2009
+                </p>
+                <p class="text-indigo-300">
+                    <span class="text-gray-400">// Status:</span> Online
+                </p>
+            </div>
+        </div>
+
+
+
+
+        <!-- Countdown Display Container -->
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-300 mb-6 uppercase tracking-wider">
+            Time Until Next System Update
+        </h2>
+        <div id="countdown" class="flex flex-wrap justify-center gap-3 sm:gap-4">
+            <!-- Countdown units will be injected here by JavaScript -->
+            <div class="text-lg text-gray-400">Loading modules...</div>
+        </div>
+
+
+        <!-- Footer Call to Action -->
+        <div class="mt-10 pt-6 border-t border-white/10">
+            <button onclick="console.log('Nishant is ready!')" 
+                    class="w-full sm:w-auto px-6 py-3 bg-indigo-600 rounded-xl font-bold text-white shadow-lg shadow-indigo-500/50 hover:bg-indigo-500 transition duration-300 ease-in-out transform hover:scale-[1.03] active:scale-[0.98]">
+                <span class="flex items-center justify-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    EXECUTE CELEBRATION PROTOCOL
+                </span>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for the Countdown Logic -->
+    <script>
+        // Set the uploaded image file name for use in the background (already set in CSS, but good for reference)
+        const PROFILE_IMAGE = 'uploaded:SAVE_20250815_194320.jpg-ef08f80a-7391-4a94-a72d-1f212fc5e471';
+
+
+        // Global variable for the interval
+        let timerInterval;
+
+
+        /**
+         * Converts a number to a string and pads it with a leading zero.
+         * @param {number} num - The number to format.
+         * @returns {string} The formatted number string.
+         */
+        const pad = (num) => num < 10 ? "0" + num : num;
+
+
+        /**
+         * Generates the HTML for a single countdown unit.
+         * @param {string|number} value - The time value (e.g., 15).
+         * @param {string} label - The unit label (e.g., DAYS).
+         * @returns {string} HTML string for the unit.
+         */
+        const createUnitHtml = (value, label) => `
+            <div class="flex flex-col items-center p-3 sm:p-4 rounded-xl countdown-unit w-[75px] sm:w-[90px]">
+                <span class="text-3xl sm:text-4xl font-extrabold text-white">${pad(value)}</span>
+                <span class="text-xs text-gray-400 mt-1 uppercase tracking-widest">${label}</span>
+            </div>
+        `;
+
+
+        /**
+         * Calculates the time remaining and updates the HTML display.
+         */
+        function updateCountdown() {
+            const now = new Date().getTime();
+            
+            // Nishant's birthday details (October 19th)
+            const birthdayMonth = 9; // 0-indexed: 9 = October
+            const birthdayDay = 19;
+            
+            let targetYear = new Date().getFullYear();
+            let targetDate = new Date(targetYear, birthdayMonth, birthdayDay, 0, 0, 0).getTime();
+
+
+            // Logic to ensure we always target the NEXT upcoming birthday
+            if (now > targetDate) {
+                // Birthday passed this year, target next year
+                targetYear += 1;
+                targetDate = new Date(targetYear, birthdayMonth, birthdayDay, 0, 0, 0).getTime();
+            }
+            
+            const distance = targetDate - now;
+
+
+            const countdownElement = document.getElementById("countdown");
+            
+            if (!countdownElement) return;
+
+
+            if (distance < 0) {
+                // Birthday has arrived!
+                clearInterval(timerInterval);
+                countdownElement.innerHTML = `
+                    <div class="w-full text-center p-4">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-yellow-300 pulsate">
+                            SYSTEM ONLINE: HAPPY BIRTHDAY! 🎉
+                        </span>
+                    </div>
+                `;
+                // Add a small delay and then apply celebratory styles if needed
+                const header = document.querySelector('h1');
+                if (header) {
+                     header.classList.remove('text-white');
+                     header.classList.add('text-yellow-300', 'animate-bounce');
+                }
+            } else {
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+                // Update the inner HTML with the professional units
+                countdownElement.innerHTML = 
+                    createUnitHtml(days, "DAYS") +
+                    createUnitHtml(hours, "HRS") +
+                    createUnitHtml(minutes, "MINS") +
+                    createUnitHtml(seconds, "SECS");
+            }
+        }
+
+
+        // Start the countdown immediately and update it every second
+        window.onload = function() {
+            updateCountdown();
+            timerInterval = setInterval(updateCountdown, 1000);
+        };
+    </script>
+</body>
+</html>
